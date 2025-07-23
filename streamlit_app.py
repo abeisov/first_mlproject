@@ -12,9 +12,9 @@ st.title('🐧 Penguin Classifier – Обучение и предсказани
 st.write("## Работа с датасетом пингвинов")
 
 df = pd.read_csv("https://raw.githubusercontent.com/dataprofessor/data/master/penguins_cleaned.csv")
-st.subheader("🔹 Случайные 10 строк")
+st.subheader("Случайные 10 строк")
 st.dataframe(df.sample(10), use_container_width=True)
-st.subheader("📊 Визуализация данных")
+st.subheader("Визуализация данных")
 
 col1, col2 = st.columns(2)
 
@@ -56,7 +56,7 @@ for name, model in models.items():
 st.write("### 📋 Сравнение моделей по точности")
 st.table(pd.DataFrame(results))
 
-st.sidebar.header("🧠 Предсказание по параметрам")
+st.sidebar.header("Предсказание по параметрам")
 
 island_input = st.sidebar.selectbox("Остров", df['island'].unique())
 sex_input = st.sidebar.selectbox("Пол", df['sex'].unique())
@@ -103,3 +103,17 @@ for col in ['bill_length_mm', 'bill_depth_mm', 'flipper_length_mm', 'body_mass_g
     user_encoded[col] = user_input[col].values
 
 user_encoded = user_encoded[X_train_encoded.columns]
+st.sidebar.subheader("Результаты предсказания")
+
+for name, model in models.items():
+    pred = model.predict(user_encoded)[0]
+    proba = model.predict_proba(user_encoded)[0]
+
+    st.sidebar.markdown(f"**{name}: {pred}**")
+
+    proba_df = pd.DataFrame({
+        'Вид': model.classes_,
+        'Вероятность': proba
+    })
+
+    st.sidebar.dataframe(proba_df.set_index("Вид"), use_container_width=True)
