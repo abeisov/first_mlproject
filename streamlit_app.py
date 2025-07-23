@@ -7,9 +7,9 @@ from sklearn.neighbors import KNeighborsClassifier
 import category_encoders as ce
 import plotly.express as px
 
-st.set_page_config(page_title="🐧 Penguin Classifier", layout="wide")
-st.title('🐧 Penguin Classifier – Обучение и предсказание')
-st.write("## Работа с датасетом пингвинов")
+st.set_page_config(page_title="Penguin Classifier", layout="wide")
+st.title('Penguin Classifier – Обучение и предсказание')
+st.write("Работа с датасетом пингвинов")
 
 df = pd.read_csv("https://raw.githubusercontent.com/dataprofessor/data/master/penguins_cleaned.csv")
 st.subheader("Случайные 10 строк")
@@ -53,7 +53,7 @@ for name, model in models.items():
         'Test Accuracy': round(acc_test, 2)
     })
 
-st.write("### 📋 Сравнение моделей по точности")
+st.write("Сравнение моделей по точности")
 st.table(pd.DataFrame(results))
 
 st.sidebar.header("Предсказание по параметрам")
